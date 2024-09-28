@@ -1,9 +1,13 @@
 package com.example.travel_app.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<PopularDomain> filteredItems;  // Lista filtrada
     private EditText searchEditText;
 
+    private ImageView btnMainActivity, btnViajesActivity, btnHotelesActivity, btnRestauranteActivity, btnFacturacionActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +44,52 @@ public class MainActivity extends AppCompatActivity {
 
         initRecyclerView();
         initSearch();
+        btnMainActivity = findViewById(R.id.imageView12);
+        btnViajesActivity = findViewById(R.id.imageView13);
+        btnHotelesActivity = findViewById(R.id.imageView14);
+        btnRestauranteActivity = findViewById(R.id.imageView15);
+        btnFacturacionActivity = findViewById(R.id.imageView16);
+
+        // Asignamos los onClickListeners para redirigir a las actividades correspondientes
+        btnMainActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnViajesActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ViajesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnHotelesActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HotelesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnRestauranteActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RestauranteActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnFacturacionActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FacturacionActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initRecyclerView() {
