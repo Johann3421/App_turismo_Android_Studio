@@ -1,6 +1,6 @@
 # Travel App
 
-![Travel App Logo](https://example.com/logo.png) <!-- Asegúrate de reemplazar esto con el enlace real de tu logo -->
+# 🛫Travel App Concept [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 ## Descripción
 
