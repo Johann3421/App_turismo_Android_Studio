@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Travel_app"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.EditarPerfilActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ConfigurarPerfilActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.FacturacionActivity"
             android:exported="false" />
         <activity

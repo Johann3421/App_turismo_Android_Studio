@@ -1,12 +1,14 @@
 package com.example.travel_app.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<PopularDomain> filteredItems;  // Lista filtrada
     private EditText searchEditText;
 
+    private TextView tvNombreModificado, tvNombreSecundario;
+    private SharedPreferences sharedPreferences;
+    private static final String PREF_NAME = "user_profile_prefs";
+
     private ImageView btnMainActivity, btnViajesActivity, btnHotelesActivity, btnRestauranteActivity, btnFacturacionActivity;
 
     @Override
@@ -37,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Inicializa el buscador
         searchEditText = findViewById(R.id.editTextText);
+        ImageView profileImageView = findViewById(R.id.imageView3);
 
         // Inicializa las listas antes de usarlas
         items = new ArrayList<>();
@@ -50,6 +57,14 @@ public class MainActivity extends AppCompatActivity {
         btnRestauranteActivity = findViewById(R.id.imageView15);
         btnFacturacionActivity = findViewById(R.id.imageView16);
 
+        tvNombreSecundario = findViewById(R.id.textView5);
+
+        // Inicializar SharedPreferences
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+
+        // Cargar y mostrar el nombre
+        cargarNombre();
+
         // Asignamos los onClickListeners para redirigir a las actividades correspondientes
         btnMainActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, MainActivity.class);
                 startActivity(intent);
             }
+        });
+        profileImageView.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ConfigurarPerfilActivity.class);
+            startActivity(intent);
         });
 
         btnViajesActivity.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +109,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void cargarNombre() {
+        String nombre = sharedPreferences.getString("nombre", "Invitado");
+
+        // Establecer el nombre en textView5
+        tvNombreSecundario.setText(nombre);
     }
 
     private void initRecyclerView() {

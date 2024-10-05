@@ -1,12 +1,14 @@
 package com.example.travel_app.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +29,10 @@ public class ViajesActivity extends AppCompatActivity {
     private ArrayList<PopularDomain> filteredItems;  // Lista filtrada
     private EditText searchEditText;
 
+    private TextView tvNombreModificado, tvNombreSecundario;
+    private SharedPreferences sharedPreferences;
+    private static final String PREF_NAME = "user_profile_prefs";
+
     private ImageView btnMainActivity, btnViajesActivity, btnHotelesActivity, btnRestauranteActivity, btnFacturacionActivity;
 
     @Override
@@ -40,6 +46,8 @@ public class ViajesActivity extends AppCompatActivity {
         // Inicializa las listas antes de usarlas
         items = new ArrayList<>();
         filteredItems = new ArrayList<>();  // Inicialización correcta de filteredItems
+
+        ImageView profileImageView = findViewById(R.id.imageView3);
 
         initRecyclerView();
         initSearch();
@@ -58,6 +66,11 @@ public class ViajesActivity extends AppCompatActivity {
             }
         });
 
+        profileImageView.setOnClickListener(v -> {
+            Intent intent = new Intent(ViajesActivity.this, ConfigurarPerfilActivity.class);
+            startActivity(intent);
+        });
+
         btnViajesActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +78,14 @@ public class ViajesActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        tvNombreSecundario = findViewById(R.id.textView5);
+
+        // Inicializar SharedPreferences
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+
+        // Cargar y mostrar el nombre
+        cargarNombre();
 
         btnHotelesActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +111,13 @@ public class ViajesActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void cargarNombre() {
+        String nombre = sharedPreferences.getString("nombre", "Invitado");
+
+        // Establecer el nombre en textView5
+        tvNombreSecundario.setText(nombre);
     }
 
     private void initRecyclerView() {

@@ -1,12 +1,14 @@
 package com.example.travel_app.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +32,10 @@ public class RestauranteActivity extends AppCompatActivity {
     private ArrayList<PopularDomain> filteredItems;  // Lista filtrada
     private EditText searchEditText;
 
+    private TextView tvNombreModificado, tvNombreSecundario;
+    private SharedPreferences sharedPreferences;
+    private static final String PREF_NAME = "user_profile_prefs";
+
     private ImageView btnMainActivity, btnViajesActivity, btnHotelesActivity, btnRestauranteActivity, btnFacturacionActivity;
 
     @Override
@@ -39,6 +45,7 @@ public class RestauranteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurante);
 
         searchEditText = findViewById(R.id.editTextText);
+        ImageView profileImageView = findViewById(R.id.imageView3);
 
         // Inicializa las listas antes de usarlas
         items = new ArrayList<>();
@@ -61,12 +68,25 @@ public class RestauranteActivity extends AppCompatActivity {
             }
         });
 
+        tvNombreSecundario = findViewById(R.id.textView5);
+
+        // Inicializar SharedPreferences
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+
+        // Cargar y mostrar el nombre
+        cargarNombre();
+
         btnViajesActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RestauranteActivity.this, ViajesActivity.class);
                 startActivity(intent);
             }
+        });
+
+        profileImageView.setOnClickListener(v -> {
+            Intent intent = new Intent(RestauranteActivity.this, ConfigurarPerfilActivity.class);
+            startActivity(intent);
         });
 
         btnHotelesActivity.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +113,13 @@ public class RestauranteActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void cargarNombre() {
+        String nombre = sharedPreferences.getString("nombre", "Invitado");
+
+        // Establecer el nombre en textView5
+        tvNombreSecundario.setText(nombre);
     }
 
     private void initRecyclerView() {

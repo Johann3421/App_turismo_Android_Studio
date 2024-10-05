@@ -5,4 +5,7 @@
     <color name="orange">#FFBE71</color>
     <color name="Blue">#0172B2</color>
     <color name="Blue_obscure">#001645</color>
+    <color name="colorPrimary">#26a69a</color>
+    <color name="colorPrimaryDark">#009688</color>
+    <color name="colorAccent">#048b7a</color>
 </resources>
